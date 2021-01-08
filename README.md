@@ -1,2 +1,2 @@
 # fasttar
-A "fast" implementation of Golang's archive/tar
+A fast, zero-allocation implementation of Golang's archive/tar
