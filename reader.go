@@ -79,10 +79,6 @@ func (r *Reader) Next() (header []byte, file []byte, err error) {
 			err = errHeader
 			return
 		}
-		if r.pos != len(r.buf) {
-			err = errHeader
-			return
-		}
 		err = io.EOF
 		return
 	}
