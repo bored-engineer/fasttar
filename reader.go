@@ -19,39 +19,6 @@ type Reader struct {
 	pos int
 }
 
-// Cap returns the capacity of the readers's underlying byte slice.
-func (r *Reader) Cap() int {
-	return cap(r.buf)
-}
-
-// Len returns the number of bytes stored in the reader.
-func (r *Reader) Len() int {
-	return len(r.buf)
-}
-
-// Truncate resets the buffer to be empty, but it retains the underlying storage for use by future writes.
-func (r *Reader) Truncate() {
-	r.buf = r.buf[:0]
-	r.pos = 0
-}
-
-// Write implement io.Writer by appending data to the internal slice
-func (r *Reader) Write(p []byte) (int, error) {
-	r.buf = append(r.buf, p...)
-	return len(p), nil
-}
-
-// ReadFrom implements io.ReaderFrom, _replacing_ the internal buffer with the read bytes
-func (r *Reader) ReadFrom(reader io.Reader) (int64, error) {
-	buf, err := ioutil.ReadAll(reader)
-	if err != nil {
-		return int64(len(buf)), err
-	}
-	r.buf = buf
-	r.pos = 0
-	return int64(len(buf)), nil
-}
-
 // readHeader checks if we will read past the end
 func (r *Reader) readHeader() ([]byte, error) {
 	start := r.pos
